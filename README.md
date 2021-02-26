@@ -43,14 +43,14 @@ You should install them using pip3.
 
 * You must set up your account to have API access.
 * Go to https://www.cardmarket.com/en/Magic/Account/API and register your account for a dedicated app.
-* You must set the confidential information as environment variables on your host. On Windows this can be done using the [SETX](https://docs.microsoft.com/de-de/windows-server/administration/windows-commands/setx), on Linux use [export](https://unix.stackexchange.com/questions/56444/how-do-i-set-an-environment-variable-on-the-command-line-and-have-it-appear-in-c) command. Set the variables as follows:
+* You must set the confidential information as environment variables on your host. On Windows this can be done using the [SETX](https://docs.microsoft.com/de-de/windows-server/administration/windows-commands/setx), on Linux [add them to the approprate file](https://unix.stackexchange.com/a/117470). Set the variables as follows:
   * ```cm_user_name```
   * ```cm_app_name``` (optional)
   * ```cm_app_type``` (optional)
   * ```cm_app_token```
   * ```cm_app_secret```
-  * ```access_token```
-  * ```access_secret```
+  * ```cm_access_token```
+  * ```cm_access_secret```
 
 
 ## 4.2. Modify the algorithm
@@ -120,9 +120,10 @@ It was **not** tested to do the following:
 It is assumed, that you are using the command line interface and python is callable with ```py``` (default in Windows and newer python versions, in Linux use ```python3``` instead or set an alias with ```alias py=python3```):  
 After you set up the python environment you can call it from the command line with ```py CmBoy.py```. You can modify the behavior with optional arguments, for a full list type in ```py CmBoy.py  --help```. Currently the following options are implemented:
 
-* ```--dryrun``` Give this optional argument to NOT update the cards. This can be useful if you first want to try out the program
-* ```--quiet``` Give this optional argument to disable all output to the command line. This could be useful if you want to use the CmBoy within another script and command line output interferes with that program
-* ```--forcePriceSet``` Give this optional argument to update prices regardless of current position. This usually results in more price updates per run and jumping of prices in between runs.
+* ```--dryrun``` or ```-d``` Give this optional argument to NOT update the cards. This can be useful if you first want to try out the program
+* ```--quiet``` or ```-q``` Give this optional argument to disable all output to the command line. This could be useful if you want to use the CmBoy within another script and command line output interferes with that program
+* ```--forcePriceSet``` or ```-f``` Give this optional argument to update prices regardless of current position. This usually results in more price updates per run and jumping of prices in between runs.
+* ```--outFile``` or ```-o``` Give this optional argument to save output to a log file. As argument give absolute path to folder where log files are stored. If empty argument but this flag is set, log is stored in CmBoy's folder. It is known that some special characters are in the log. They are special characters that change the color of characters on the command line.
 
 # 7. The Algorithm
 
@@ -149,7 +150,7 @@ If you prefer words and some info left from above graph:
     a) Yes: Is my card already at minimum price? If so done, if not, set it to min price for that category.
     b) No: So the card is above min price for that category. Has your card the same position as target card (this could be if a lot of listings have the same price and a better selling score than you). If that's the case, there is nothing you can do (except for undercut everyone, which usually is not worth it). In the other case, your card is matched to the market price.
 
-If the card price was adjusted, the card is added to the list of cards that will be uploaded (this is not done if ```--dryrun is specified```).
+If the card price was adjusted, the card is added to the list of cards that will be uploaded (this is not done if ```--dryrun``` is specified).
 
 ## 7.3. Ignore specific listing
 
